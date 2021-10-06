@@ -5,12 +5,13 @@ deployments:
       - path: tfstate.cfn
       - path: vpc.tf
         options:
+          terraform_backend_config:
             bucket: ${cfn ${var namespace}-tf-state.TerraformStateBucketName}
             dynamodb_table: ${cfn ${var namespace}-tf-state.TerraformStateTableName}
             #region: ${env AWS_REGION}
-            args:
-                init:
-                  - '-no-color'
+          args:
+            init:
+              - '-no-color'
     regions: ${var regions.${env DEPLOY_ENVIRONMENT}}
     parameters:
       region: ${env AWS_REGION}
