@@ -1,0 +1,27 @@
+---
+# See full syntax at https://docs.onica.com/projects/runway
+deployments:
+  - modules:
+      - path: tfstate.cfn
+      - path: vpc.tf
+        options:
+            bucket: ${cfn ${var namespace}-tf-state.TerraformStateBucketName}
+            dynamodb_table: ${cfn ${var namespace}-tf-state.TerraformStateTableName}
+            #region: ${env AWS_REGION}
+            args:
+                init:
+                  - '-no-color'
+    regions: ${var regions.${env DEPLOY_ENVIRONMENT}}
+    parameters:
+      region: ${env AWS_REGION}
+      namespace: ${var namespace}
+      customer: ${var customer}
+      environment: ${env DEPLOY_ENVIRONMENT}
+
+variables:
+  namespace: top-lab15
+  customer: top-lab15
+  regions:
+    dev:
+      #- us-east-1
+      - us-west-1
