@@ -8,10 +8,15 @@ deployments:
           terraform_backend_config:
             bucket: ${cfn ${var namespace}-tf-state.TerraformStateBucketName}
             dynamodb_table: ${cfn ${var namespace}-tf-state.TerraformStateTableName}
-            #region: ${env AWS_REGION}
-          args:
-            init:
-              - '-no-color'
+      - path: imgmgr.tf
+        parameters:
+          keypair: ${env AWS_REGION}-EC2-Default-Key
+          statebucket: ${cfn ${var namespace}-tf-state.TerraformStateBucketName}
+        options:
+          terraform_backend_config:
+            bucket: ${cfn ${var namespace}-tf-state.TerraformStateBucketName}
+            dynamodb_table: ${cfn ${var namespace}-tf-state.TerraformStateTableName}
+
     regions: ${var regions.${env DEPLOY_ENVIRONMENT}}
     parameters:
       region: ${env AWS_REGION}
