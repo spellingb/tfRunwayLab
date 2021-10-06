@@ -7,8 +7,8 @@ output "Environment" {
 output "Ciderblock" {
   value = "${lookup(var.CiderBlock, var.region)}.0.0/16"
 }
-output "AZs" {
-  value = data.aws_availability_zones.AZs.names
+output "availability_zones" {
+  value = [data.aws_availability_zones.availability_zones.names]
 }
 output "pub_networks" {
   value = local.pub_networks
@@ -19,12 +19,12 @@ output "priv_networks" {
 output "VPC_Name" {
   value = "${var.customer}-${var.environment}-VPC"
 }
-output "vpcid" {
+output "vpc_id" {
   value = module.vpc.vpc_id
 }
-output "pubsub" {
+output "public_subnet_list" {
   value = module.vpc.public_subnets
 }
-output "privsub" {
+output "private_subnet_list" {
   value = module.vpc.private_subnets
 }

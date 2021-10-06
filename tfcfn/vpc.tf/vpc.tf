@@ -1,9 +1,10 @@
 module "vpc" {
-  source                  = "terraform-aws-modules/vpc/aws"
-  version                 = "~>3.7.0"
+  #source                  = "terraform-aws-modules/vpc/aws"
+  source                  = "./modules/vpc"
+  #version                 = "3.7.0"
   name                    = "${var.customer}-${var.environment}-VPC"
   cidr                    = "${lookup(var.CiderBlock, var.region)}.0.0/16"
-  azs                     = local.AZs
+  azs                     = local.availability_zones
   private_subnets         = local.priv_networks
   public_subnets          = local.pub_networks
   enable_nat_gateway      = true

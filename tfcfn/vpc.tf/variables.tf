@@ -28,23 +28,23 @@ locals {
     maxsubnets = 2
 }
 
-data "aws_availability_zones" "AZs" {
+data "aws_availability_zones" "availability_zones" {
     state = "available"
 }
 
 locals {
-    AZs = data.aws_availability_zones.AZs.names
+    availability_zones = data.aws_availability_zones.availability_zones.names
 }
 
 locals {
     priv_networks = [
-        for az in local.AZs:
-            "${lookup(var.CiderBlock, var.region)}.${local.priv + index(local.AZs, az)}.0/24"
-            if index(local.AZs, az) < local.maxsubnets
+        for az in local.availability_zones:
+            "${lookup(var.CiderBlock, var.region)}.${local.priv + index(local.availability_zones, az)}.0/24"
+            if index(local.availability_zones, az) < local.maxsubnets
     ]
     pub_networks = [
-        for az in local.AZs:
-            "${lookup(var.CiderBlock, var.region)}.${local.pub + index(local.AZs, az)}.0/24"
-            if index(local.AZs, az) < local.maxsubnets
+        for az in local.availability_zones:
+            "${lookup(var.CiderBlock, var.region)}.${local.pub + index(local.availability_zones, az)}.0/24"
+            if index(local.availability_zones, az) < local.maxsubnets
     ]
 }
