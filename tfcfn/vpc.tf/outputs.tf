@@ -19,3 +19,12 @@ output "priv_networks" {
 output "VPC_Name" {
   value = "${var.customer}-${var.environment}-VPC"
 }
+output "vpcid" {
+  value = module.vpc.vpc_id
+}
+output "pubsub" {
+  value = module.vpc.public_subnets
+}
+output "privsub" {
+  value = module.vpc.private_subnets
+}
