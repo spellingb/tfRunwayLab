@@ -1,12 +1,6 @@
-variable "environment" {
-    default = "dev"
-}
-variable "customer" {
-    default = "test"
-}
-variable "namespace" {
-    default = "test"
-}
+variable "environment" {}
+variable "customer" {}
+variable "namespace" {}
 variable "region" {
     description   = "AWS region"
     type          = string
