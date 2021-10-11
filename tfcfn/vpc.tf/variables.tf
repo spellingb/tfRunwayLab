@@ -28,10 +28,6 @@ locals {
     maxsubnets = 2
 }
 
-data "aws_availability_zones" "availability_zones" {
-    state = "available"
-}
-
 locals {
     availability_zones = data.aws_availability_zones.availability_zones.names
 }

@@ -29,10 +29,3 @@ private_subnet_tags = {
     Environment = "dev"
   }
 }
-
-
-
-
-
-
-
