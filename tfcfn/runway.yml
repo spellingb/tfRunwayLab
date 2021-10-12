@@ -4,8 +4,6 @@ deployments:
   - modules:
       - path: tfstate.cfn
       - path: vpc.tf
-        parameters:
-          environment: common
         options:
           terraform_backend_config:
             bucket: ${cfn ${var namespace}-tf-state.TerraformStateBucketName}
@@ -14,6 +12,7 @@ deployments:
         parameters:
           keypair: ${env AWS_REGION}-EC2-Default-Key
           statebucket: ${cfn ${var namespace}-tf-state.TerraformStateBucketName}
+          environment: ${env DEPLOY_ENVIRONMENT}
         options:
           terraform_backend_config:
             bucket: ${cfn ${var namespace}-tf-state.TerraformStateBucketName}
@@ -23,7 +22,6 @@ deployments:
       region: ${env AWS_REGION}
       namespace: ${var namespace}
       customer: ${var customer}
-      environment: ${env DEPLOY_ENVIRONMENT}
 
 variables:
   namespace: top-lab15
