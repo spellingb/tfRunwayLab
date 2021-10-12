@@ -4,7 +4,8 @@ deployments:
   - modules:
       - path: tfstate.cfn
       - path: vpc.tf
-        environment: "common" #always set to common to allow cross-use
+        parameters:
+          environment: common
         options:
           terraform_backend_config:
             bucket: ${cfn ${var namespace}-tf-state.TerraformStateBucketName}
@@ -17,8 +18,7 @@ deployments:
           terraform_backend_config:
             bucket: ${cfn ${var namespace}-tf-state.TerraformStateBucketName}
             dynamodb_table: ${cfn ${var namespace}-tf-state.TerraformStateTableName}
-
-    #regions: ${var regions.${env DEPLOY_ENVIRONMENT}}
+    regions: ${var regions.${env DEPLOY_ENVIRONMENT}}
     parameters:
       region: ${env AWS_REGION}
       namespace: ${var namespace}
