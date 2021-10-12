@@ -12,7 +12,7 @@ resource "aws_s3_bucket" "img_mgr_bucket" {
 
 #load balancer
 resource "aws_lb" "img_mgr_lb" {
-  name = "imgmgr-lb"
+  name = "imgmgr-lb-${var.environment}"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.lb_security_group.id]
@@ -27,7 +27,7 @@ resource "aws_lb" "img_mgr_lb" {
 }
 
 resource "aws_lb_target_group" "img_mgr_target_group" {
-  name                          = "imgmgr-tg"
+  name                          = "imgmgr-tg-${var.environment}"
   port                          = 80
   load_balancing_algorithm_type = "round_robin"
   target_type                   = "instance"
@@ -69,7 +69,7 @@ resource "aws_lb_listener" "img_mgr_listener" {
 
 #launch template
 resource "aws_launch_template" "img_mgr_lt" {
-  name = "img-mgr-launchtemplate"
+  name = "img-mgr-${var.environment}-lt"
 
   disable_api_termination = false
 
@@ -108,7 +108,7 @@ resource "aws_launch_template" "img_mgr_lt" {
 
 # autoscale group
 resource "aws_placement_group" "imgmgr" {
-  name     = "imgmgr"
+  name     = "imgmgr-${var.environment}"
   strategy = "spread"
 }
 

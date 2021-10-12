@@ -1,5 +1,5 @@
 resource "aws_iam_role" "img_mgr_role" {
-  name                = "img_mgr_role"
+  name                = "img_mgr_role_${var.environment}"
   managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"]
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
@@ -52,6 +52,6 @@ resource "aws_iam_role" "img_mgr_role" {
 
 #reate instance profile
 resource "aws_iam_instance_profile" "img_mgr_profile" {
-  name = "img_mgr_profile"
+  name = "img_mgr_profile-${var.environment}"
   role = aws_iam_role.img_mgr_role.name
 }
